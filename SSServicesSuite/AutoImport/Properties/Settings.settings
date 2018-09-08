@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutoImport.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="APIEndPointURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:47063/api/</Value>
+    </Setting>
+    <Setting Name="SleepTime" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">100000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

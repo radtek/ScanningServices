@@ -1,0 +1,875 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CADISolr</name>
+    </assembly>
+    <members>
+        <member name="T:CADISolr.Controllers.CADISolrController">
+            <returns></returns>
+            
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CADISolr.Controllers.CADISolrController.GetCollections(System.String,System.String)">
+            <summary>
+            Get Collection for a given Solr Environmetaaaaaa
+            </summary>
+            <param name="solrHostName">192.168.10.193</param>
+            <param name="solrPortNumber">8983</param>
+            <remarks>
+            This API has been expose for testing proposes only.ddd
+            </remarks>
+            <response code="200">Ok</response>
+            <returns>List of Collection Names in Json format</returns>
+        </member>
+        <member name="M:CADISolr.Controllers.CADISolrController.UpdateDAFLibrary(System.String)">
+            <summary>
+            Update a given Library/Collection in Solr. 
+            </summary>
+            <remarks>
+            Sample Request:
+            '{"LibraryName":"Demo","ReplicationFactor":"1",
+            "NumberOfShards":"1","MaxShardsPerNode":"5",
+            "Fields":[{"FieldName":"First_tName","FieldType":"string",
+            "IndexFlag":"true","StoredFlag":null,"MultipleValueFlag":null,
+            "Required":null,"UniqueKey":null},{"FieldName":"Last_Name",
+            "FieldType":"string","IndexFlag":"true","StoredFlag":null,
+            "MultipleValueFlag":null,"Required":null,"UniqueKey":null},
+            {"FieldName":"Email","FieldType":"string","IndexFlag":"true",
+            "StoredFlag":null,"MultipleValueFlag":null,"Required":null,
+            "UniqueKey":null}],"solr":{  "HostName":"192.168.10.193",
+            "PortNumber":"8983"},"zookeeper":{"HostName":"192.168.10.193",
+            "PortNumber":"8983"  },"DAFInstanceName":"DAFInstance"}'
+            </remarks>
+            <param name="libraryJS">
+             Parameter Sample:
+            '{"LibraryName":"Demo","ReplicationFactor":"1",
+            "NumberOfShards":"1","MaxShardsPerNode":"5",
+            "Fields":[{"FieldName":"First_tName","FieldType":"string",
+            "IndexFlag":"true","StoredFlag":null,"MultipleValueFlag":null,
+            "Required":null,"UniqueKey":null},{"FieldName":"Last_Name",
+            "FieldType":"string","IndexFlag":"true","StoredFlag":null,
+            "MultipleValueFlag":null,"Required":null,"UniqueKey":null},
+            {"FieldName":"Email","FieldType":"string","IndexFlag":"true",
+            "StoredFlag":null,"MultipleValueFlag":null,"Required":null,
+            "UniqueKey":null}],"solr":{  "HostName":"192.168.10.193",
+            "PortNumber":"8983"},"zookeeper":{"HostName":"192.168.10.193",
+            "PortNumber":"8983"  },"DAFInstanceName":"DAFInstance"}'
+            </param>
+            <response code="200">Ok</response>
+            <returns></returns>
+        </member>
+        <member name="M:CADISolr.Controllers.CADISolrController.NewDAFLibrary(System.String)">
+            <summary>
+            Create a new DAF Library/Collection in Solr:
+            </summary>
+            <param name="libraryJS">
+            Parameter Sample:
+            '{"LibraryName":"Demo","ReplicationFactor":"1",
+            "NumberOfShards":"1","MaxShardsPerNode":"5",
+            "Fields":[{"FieldName":"First_tName","FieldType":"string",
+            "IndexFlag":"true","StoredFlag":null,"MultipleValueFlag":null,
+            "Required":null,"UniqueKey":null},{"FieldName":"Last_Name",
+            "FieldType":"string","IndexFlag":"true","StoredFlag":null,
+            "MultipleValueFlag":null,"Required":null,"UniqueKey":null},
+            {"FieldName":"Email","FieldType":"string","IndexFlag":"true",
+            "StoredFlag":null,"MultipleValueFlag":null,"Required":null,
+            "UniqueKey":null}],"solr":{  "HostName":"192.168.10.193",
+            "PortNumber":"8983"},"zookeeper":{"HostName":"192.168.10.193",
+            "PortNumber":"8983"  },"DAFInstanceName":"DAFInstance"}'
+            </param>
+            <remarks>
+            
+            </remarks>
+            <response code="200">Ok</response>
+            <returns></returns>
+            
+        </member>
+        <member name="M:CADISolr.Controllers.CADISolrController.DeleteDAFLibrary(System.String,System.String,System.String)">
+            <summary>
+            Delete a given Library/Collection in Solr
+            </summary>
+            <param name="solrHostName">192.168.10.193</param>
+            <param name="solrPortNumber">8983</param>
+            <param name="libraryName"></param>
+            <remarks>
+            
+            </remarks>
+            <response code="200">Ok</response>
+            <returns></returns>
+        </member>
+        <member name="T:CADISolr.General">
+            <summary>
+            Hold support Methods for Solr Integration
+            </summary>
+        </member>
+        <member name="F:CADISolr.General.sSource">
+            <summary>
+            Source Name idenftifier in Event Log
+            </summary>
+        </member>
+        <member name="T:CADISolr.General.FieldTrannsactionType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CADISolr.General.FieldTrannsactionType.DELETE">
+            <summary>
+            delete-field action nin Solr
+            </summary>
+        </member>
+        <member name="F:CADISolr.General.FieldTrannsactionType.REPLACE">
+            <summary>
+            replace-field action in Solr
+            </summary>
+        </member>
+        <member name="F:CADISolr.General.FieldTrannsactionType.ADD">
+            <summary>
+            add-field action in Solr
+            </summary>
+        </member>
+        <member name="M:CADISolr.General.AddField(System.String,System.String,System.String,CADISolr.Model.Field)">
+            <summary>
+            Add a new Field in a given Collection
+            if the field name already exist, the add operation will be ignored
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <param name="field"></param>
+            <returns>
+            result.ReturnValue = true means Add-Field was executed successfully but could be ignored if the Field already exist (Retuurn Message will have the details)
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.UpdateMultipleField(System.String,System.String,System.String,System.String)">
+            <summary>
+            Add Multiple Fields in a given Collection
+            This method will fail if one or more fields already exist, so it is recomended toprovide only the fields that does not exist
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <param name="bodyString"></param>
+            <returns>
+            result.ReturnValue = true means Add-Field was executed successfully but could be ignored if the Field already exist (Retuurn Message will have the details)
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.GetFieldTransactionInJsonFormat(CADISolr.General.FieldTrannsactionType,CADISolr.Model.Field)">
+            <summary>
+            Create the json string necessary for the body of the Solr Schema API 
+            This method differentiate between Add/Delete/Update transaction
+            </summary>
+            <param name="transactionType"></param>
+            <param name="field"></param>
+            <returns>json string to be use for the body of the Solr's Schema API Call</returns>
+        </member>
+        <member name="M:CADISolr.General.ProcessCollectionFields(System.String,System.String,System.String,System.Collections.Generic.List{CADISolr.Model.Field})">
+            <summary>
+            This Method will check the Solr Fields Collection Fields vs DAF Fields and it will ADD, REPALCE or DELETE the fields from/in the Collecion
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <param name="dafLibraryFields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CADISolr.General.AddSystemFieldsToFieldsList(System.Collections.Generic.List{CADISolr.Model.Field})">
+            <summary>
+            This Method add DAF system fields definition to a given Fields List
+            System fileds that are in the given Fields List, will be ignore and only the ones that do not exist will be added.
+            The resulting list is basically the fields that Solr needs to have for the associated collection be in snc with
+            DAF Librar Fields.
+            The resltinng List is used to build a transaction string that contains fields that need to be deleted, replaced or added
+            to the Collection in Solr
+            </summary>
+            <param name="dafLibraryFields"></param>
+            <returns>Updated Fields List containing DAF system fields</returns>
+        </member>
+        <member name="M:CADISolr.General.DeleteField(System.String,System.String,System.String,System.String)">
+            <summary>
+            Delete a Field from a given Collection
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <param name="fieldName"></param>
+            <returns>
+            result.ReturnValue = true means Delete-Field was executed successfully but could be ignored if the Field does not exist (Return Message will have the details)
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.ReplaceField(System.String,System.String,System.String,CADISolr.Model.Field)">
+            <summary>
+            Replace  Field configuration settings in a Collection
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <param name="field"></param>
+            <returns>
+            result.ReturnValue = true means Replace-Field was executed successfully but could be ignored if the Field does not exist (Return Message will have the details)
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.FieldExist(System.String,System.String,System.String,System.String)">
+            <summary>
+            Check if a Filed Name for a given collection exist
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <param name="fieldName"></param>
+            <returns>
+            result.ReturnValue = true means Field Name exist in the givenn collection
+            result.ReturnCode = 0 means that the API call was successfully executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.SystemFieldExist(System.Collections.Generic.List{CADISolr.Model.Field},System.String)">
+            <summary>
+            Check if a given system Field is already defined in Solr
+            The Method looks for the field name in a givenn fields list
+            </summary>
+            <param name="solrfields"></param>
+            <param name="fieldName"></param>
+            <returns>True : if field exist</returns>
+        </member>
+        <member name="M:CADISolr.General.IsSystemField(System.String)">
+            <summary>
+            Check if a givenn filed name is an internal DAF System Field
+            </summary>
+            <param name="fieldName"></param>
+            <returns>True: if the given filed is a System DAF Field</returns>
+        </member>
+        <member name="M:CADISolr.General.GetUserFields(System.String,System.String,System.String)">
+            <summary>
+            Get a List of DAF User Fields for a given Collection (DAF Library)
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <returns>
+            result.ReturnValue = list of User Fields. There may be a situation where the collection does not exist. If this is the case, check for the result.ReturnValue.Count.
+            If grather than Zero means that collection was found and it contains user fields.
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.GetCollectionFields(System.String,System.String,System.String)">
+            <summary>
+            Get a List of fields for a given Collection/Library in Solr
+            This method get the fields from the Collection's Managed-Schema using the Solr Collection Schema.
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <returns>
+            result.ReturnValue = list of User Fields. There may be a situation where the collection does not exist. If this is the case, check for the result.ReturnValue.Count.
+            If grather than Zero means that collection was found and it contains user fields.
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.GetSolrCores(System.String,System.String)">
+            <summary>
+            Get Cores information for a Given Solr Server
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <returns>
+            result.ReturnValue = list of Solr's Cores. 
+            If Cores list is > 0 it means that Cores was found for this Solr Server
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.SolrCoretExist(System.String,System.String,System.String)">
+            <summary>
+            Chck if a given Core exist in a Solr Server
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="coreName"></param>
+            <returns>
+            result.ReturnValue = "true" if the Core exist. Otherwise it will return "false"
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.ReturnCode = -2 means that there was a Fatal error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.GetSolrConfigurationSets(System.String,System.String)">
+            <summary>
+            Get a list of Configuration Sets in a given Solr Server
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <returns>
+            result.ReturnValue = list of Solr's Configuration Sets. 
+            If grather than Zero means that collection was found and it contains Configuration Sets.
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.SolrConfigurationSetExist(System.String,System.String,System.String)">
+            <summary>
+            Check if a given Configuration Set exist in a Solr Configuration
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="configurationSetName"></param>
+            <returns>
+            result.ReturnValue = "true" if the configuration Set exist. Otherwise it will return "false"
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.GetSolrCollections(System.String,System.String)">
+            <summary>
+            Get collections for in na given solr server
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <returns>
+            result.ReturnValue = list of Solr's Collections. 
+            If grather than Zero means that collection was found and it contains Collections.
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.SolrCollectionExist(System.String,System.String,System.String)">
+            <summary>
+            Check if a given Collection exist in a Solr Configuration
+            This Method get the Collectionn from Solr and then look for the given collection in the result list
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="collectionName"></param>
+            <returns>
+            result.ReturnValue = "true" if the Collection Name exist. Otherwise it will return "false"
+            result.ReturnCode = 0 means that the API call was successfuly executed
+            result.ReturnCode = -1 means that there was an error in the API call
+            result.Message contains additional information about the API call
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.CreateCollection(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <param name="NumberOfShards"></param>
+            <param name="ReplicationFactor"></param>
+            <param name="MaxShardsPerNode"></param>
+            <returns>
+            If result.ReturnValue is "True" ,means that the collection was created from Solr.
+            Otherwise, it will return "False"
+            Use the True/False values in convination wwith the return code:
+            Return Code 0 , ReturnValue = True --> means : Collection successfullyy created
+            Return Code 0 , ReturnValue = False --> means : Create Transaction Ignored
+            Return Code -1 or -2, ReturnValue = wwill be always False
+            </returns>
+        </member>
+        <member name="M:CADISolr.General.DeleteCollection(System.String,System.String,System.String)">
+            <summary>
+            Delete a given Colection from a Solr Server
+            </summary>
+            <param name="solrHostName"></param>
+            <param name="solrPortNumber"></param>
+            <param name="libraryName"></param>
+            <returns>
+            If result.ReturnValue is "True" ,means that the collection was deleted from Solr.
+            Otherwise, it will return "False"
+            Use the True/False values in convination wwith the return code:
+            Return Code 0 , ReturnValue = True --> means : Collection successfullyy deleted
+            Return Code 0 , ReturnValue = False --> means : Delete Transaction Ignored
+            Return Code -1 or -2, ReturnValue = wwill be always False
+            </returns>
+        </member>
+        <member name="T:CADISolr.Model.Field">
+            <summary>
+            Data Object to represent a Metadata Field
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Field.FieldName">
+            <summary>
+            Internal Field Name
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Field.FieldType">
+            <summary>
+            Identify the type of data that the field contains
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Field.IndexFlag">
+            <summary>
+            Indicates if field will be indexed in Solr: ResultReturnValue.True/ResultReturnValue.False Value
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Field.StoredFlag">
+            <summary>
+            Indicates if field will be stored in Solr Indexes: ResultReturnValue.True/ResultReturnValue.False Value
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Field.MultipleValueFlag">
+            <summary>
+            Indicates if field will has the capability to hold multiple values: ResultReturnValue.True/ResultReturnValue.False Value
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Field.Required">
+            <summary>
+            Indicates if field is required for indexing: ResultReturnValue.True/ResultReturnValue.False Value
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Field.UniqueKey">
+            <summary>
+            Indicates if field will is to be used as unique id in Solr Index Collection: ResultReturnValue.True/ResultReturnValue.False Value
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.resultReturnValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CADISolr.Model.resultReturnValue.True">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CADISolr.Model.resultReturnValue.False">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.Result">
+            <summary>
+            General Data structure to be used to return the result of Methods
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Result.HttpStatusCode">
+            <summary>
+            This is the Response Code of a Http API Call
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Result.ReturnCode">
+            <summary>
+            Return Value { success = 0, failure = -1}
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Result.Message">
+            <summary>
+            Any Infofrmation 
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Result.ReturnValue">
+            <summary>
+            "true"/"false"
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Result.Exception">
+            <summary>
+            Exception Message
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Result.ElapsedTime">
+            <summary>
+            Mesure the Method Elapsed time in seconds
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.ResultCollections">
+            <summary>
+            General Data Obect to be used when dealing with Solr Colection API call
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCollections.HttpStatusCode">
+            <summary>
+            This is the Response Code of a Http API Call
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCollections.ReturnCode">
+            <summary>
+            Return Value { success = 0, failure = -1}
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCollections.Message">
+            <summary>
+            Any information
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCollections.ReturnValue">
+            <summary>
+             List of strings representng the nnames of eisting collections in Solr
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCollections.Exception">
+            <summary>
+            Exception Message
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCollections.ElapsedTime">
+            <summary>
+            Mesure the Method Elapsed time in seconds
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.ResultConfigurationSets">
+            <summary>
+            General Data Obeject to be use to deal with Solr Connfiguration API calls
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultConfigurationSets.HttpStatusCode">
+            <summary>
+            This is the Response Code of a Http API Call
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultConfigurationSets.ReturnCode">
+            <summary>
+            Return Value { success = 0, failure = -1}
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultConfigurationSets.Message">
+            <summary>
+            Any information
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultConfigurationSets.ReturnValue">
+            <summary>
+            This is a list of strings that represent the name of Configuration sets in Solr
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultConfigurationSets.Exception">
+            <summary>
+            Exception Message
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.ResultCores">
+            <summary>
+            General Data Obeject used to represent the response from a Solr Core API call
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCores.HttpStatusCode">
+            <summary>
+            This is the Response Code of a Http API Call
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCores.ReturnCode">
+            <summary>
+            Return Value { success = 0, failure = -1}
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCores.Message">
+            <summary>
+            Any information
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCores.ReturnValue">
+            <summary>
+            List of coplex Data Obeject that contains nformation about Solr Cores
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultCores.Exception">
+            <summary>
+            Exception Message
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.ResultFields">
+            <summary>
+            General Data Object to be used for responses from Methods that deal with Solr Fields
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultFields.HttpStatusCode">
+            <summary>
+            This is the Response Code of a Http API Call
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultFields.ReturnCode">
+            <summary>
+            Return Value { success = 0, failure = -1}
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultFields.Message">
+            <summary>
+            Any information
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultFields.ReturnValue">
+            <summary>
+            Complex structure that represent the information of a Field
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.ResultFields.Exception">
+            <summary>
+            Exception Message
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.Solr">
+            <summary>
+            Hold informationn about a Solr Server
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Solr.HostName">
+            <summary>
+            Identify the Solr Server Name
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Solr.PortNumber">
+            <summary>
+            Identif the port umber to be used by Solr
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.SolrCore">
+            <summary>
+            Data Object to use to hold the information about a Solr Core
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Name">
+            <summary>
+            Name of the Solr Core
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.InstanceDir">
+            <summary>
+            Location of Solr's instance
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.DataDir">
+            <summary>
+            Location of Solr's Data
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Config">
+            <summary>
+            Core configuration name
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Schema">
+            <summary>
+            Schema name
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.StartTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Uptime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.LastPublished">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.NumDocs">
+            <summary>
+            Current nnumber of documents in the Core
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.MaxDoc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.DeletedDocs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.IndexHeapUsageBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Version">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.SegmentCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Current">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.HasDeletions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Directory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.SegmentsFile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.SegmentsFileSizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.SizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrCore.Size">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.SolrLibrary">
+            <summary>
+            Library Data Object to be use to perform update/delete/create operation for a Librar in a Solr
+            environment
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.LibraryName">
+            <summary>
+            Internal DAF Librar Name
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.ReplicationFactor">
+            <summary>
+            A Solr index can be replicated across multiple slave servers, which then process requests.
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.NumberOfShards">
+            <summary>
+            A Shard is a logical partition of the collection, containing a subset of documents from the collection, 
+            such that every document in a collection is contained in exactly one Shard
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.MaxShardsPerNode">
+            <summary>
+            Inndicate the maximunn number of Shards per Node
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.Fields">
+            <summary>
+            These is the Metadata definition for a Library
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.solr">
+            <summary>
+            Contain the Solr Server information
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.zookeeper">
+            <summary>
+            Contain the Zookeeper Server information
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.SolrLibrary.DAFInstanceName">
+            <summary>
+            Internal Name of the DAF Instance that contains the Library definition
+            </summary>
+        </member>
+        <member name="T:CADISolr.Model.Zookeeper">
+            <summary>
+            Hold iformation nabout Zookeeper
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Zookeeper.HostName">
+            <summary>
+            Identify the Zookeeper Server Name
+            </summary>
+        </member>
+        <member name="P:CADISolr.Model.Zookeeper.PortNumber">
+            <summary>
+            Identif the port umber to be used by Zookeeper
+            </summary>
+        </member>
+        <member name="T:CADI_Solr.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CADI_Solr.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:CADI_Solr.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CADI_Solr.Startup.Error">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADI_Solr.Startup.Error.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CADI_Solr.Startup.Error.Stacktrace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CADI_Solr.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="env"></param>
+        </member>
+        <member name="P:CADI_Solr.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CADI_Solr.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:CADI_Solr.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="loggerFactory"></param>
+        </member>
+    </members>
+</doc>

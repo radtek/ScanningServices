@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScanningServices", "SSApis\ScanningServices\ScanningServices.csproj", "{19E468C6-52BD-4AD8-97BE-B088C6B9DC04}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "SSApis\docker-compose.dcproj", "{CE536197-5EF9-4CF5-8450-578A5A5810E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScanningServicesDataObjects", "SSDataObjects\ScanningServicesDataObjects\ScanningServicesDataObjects.csproj", "{F902AAC6-732B-44BD-BAEC-A038CEFF9CB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19E468C6-52BD-4AD8-97BE-B088C6B9DC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19E468C6-52BD-4AD8-97BE-B088C6B9DC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19E468C6-52BD-4AD8-97BE-B088C6B9DC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19E468C6-52BD-4AD8-97BE-B088C6B9DC04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE536197-5EF9-4CF5-8450-578A5A5810E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE536197-5EF9-4CF5-8450-578A5A5810E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE536197-5EF9-4CF5-8450-578A5A5810E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F902AAC6-732B-44BD-BAEC-A038CEFF9CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F902AAC6-732B-44BD-BAEC-A038CEFF9CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F902AAC6-732B-44BD-BAEC-A038CEFF9CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F902AAC6-732B-44BD-BAEC-A038CEFF9CB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C3FADCA-8B61-4602-B3A1-549CCD58D7F7}
+	EndGlobalSection
+EndGlobal

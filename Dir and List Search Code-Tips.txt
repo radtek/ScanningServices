@@ -1,0 +1,42 @@
+static void DirSearch(string sDir)
+{
+    try
+    {
+        foreach (string d in Directory.GetDirectories(sDir))
+        {
+            foreach (string f in Directory.GetFiles(d))
+            {
+                Console.WriteLine(f);
+            }
+            DirSearch(d);
+        }
+    }
+    catch (System.Exception excpt)
+    {
+        Console.WriteLine(excpt.Message);
+    }
+}
+
+public static ArrayList DirSearch(string sDir)
+{
+    try
+    {
+        foreach (string d in Directory.GetDirectories(sDir))
+        {
+            foreach (string f in Directory.GetFiles(d, "*.xml"))
+            {
+                string extension = Path.GetExtension(f);
+                if (extension != null && (extension.Equals(".xml")))
+                {
+                fileList.Add(f);
+                }
+            }
+            DirSearch(d);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+    return fileList;
+}

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	<DebugType>Full</DebugType>
+	<Company>COMPU-DATA International</Company>
+	<Product>Scanning Services Data Objects</Product>
+	<Description>This project contains a class that represent the Data Object that are used in the Scanning Services APIs and Scanning Services UI application.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>C:\My Documents\CDLAC Applications\Visual Studio\Scanning Services\SSDataObjects\OutPut</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0-preview1-25914-04" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,713 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E36CBC62-CF2D-4E6A-BF4D-C0EBD2853AD3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ScanningServicesAdmin</RootNamespace>
+    <AssemblyName>ScanningServicesAdmin</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Application.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CircularProgressBar, Version=2.5.6403.13419, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\CircularProgressBar.2.5.6403.13419\lib\net35-client\CircularProgressBar.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.11.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>packages\NLog.Web.4.5.1\lib\net35\NLog.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="ScanningServicesDataObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SSDataObjects\OutPut\netstandard2.0\ScanningServicesDataObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.ComponentModel.Annotations.4.4.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="netstandard" />
+    <Reference Include="WinFormAnimation, Version=1.5.6298.3372, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WinFormAnimation.1.5.6298.3372\lib\net35-client\WinFormAnimation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\GlovalVariables.cs" />
+    <Compile Include="DBTransactions.cs" />
+    <Compile Include="Forms\AAA-TemporaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AAA-TemporaryForm.Designer.cs">
+      <DependentUpon>AAA-TemporaryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BatchControlCenterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BatchControlCenterForm.Designer.cs">
+      <DependentUpon>BatchControlCenterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BatchDocumentViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BatchDocumentViewerForm.Designer.cs">
+      <DependentUpon>BatchDocumentViewerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BatchManagamentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BatchManagamentForm.Designer.cs">
+      <DependentUpon>BatchManagamentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BatchTrackingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BatchTrackingForm.Designer.cs">
+      <DependentUpon>BatchTrackingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExportForm.Designer.cs">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JobTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JobTypeForm.Designer.cs">
+      <DependentUpon>JobTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PageSizeCategoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PageSizeCategoriesForm.Designer.cs">
+      <DependentUpon>PageSizeCategoriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProcessesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProcessesForm.Designer.cs">
+      <DependentUpon>ProcessesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CustomerForm.Designer.cs">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DuplicateRemoverForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DuplicateRemoverForm.Designer.cs">
+      <DependentUpon>DuplicateRemoverForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExportConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExportConfigurationForm.Designer.cs">
+      <DependentUpon>ExportConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FieldForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FieldForm.Designer.cs">
+      <DependentUpon>FieldForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GeneralSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GeneralSettingsForm.Designer.cs">
+      <DependentUpon>GeneralSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IndexerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IndexerForm.Designer.cs">
+      <DependentUpon>IndexerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JobBatchDeliveryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JobBatchDeliveryForm.Designer.cs">
+      <DependentUpon>JobBatchDeliveryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JobFieldsImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JobFieldsImportForm.Designer.cs">
+      <DependentUpon>JobFieldsImportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PDFConversionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PDFConversionForm.Designer.cs">
+      <DependentUpon>PDFConversionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectForm.Designer.cs">
+      <DependentUpon>ProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QualityControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QualityControlForm.Designer.cs">
+      <DependentUpon>QualityControlForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RenamerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RenamerForm.Designer.cs">
+      <DependentUpon>RenamerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReportForm.Designer.cs">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SchedulingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SchedulingForm.Designer.cs">
+      <DependentUpon>SchedulingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ServiceStationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ServiceStationsForm.Designer.cs">
+      <DependentUpon>ServiceStationsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SMTPSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SMTPSettingsForm.Designer.cs">
+      <DependentUpon>SMTPSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StatusChangeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StatusChangeForm.Designer.cs">
+      <DependentUpon>StatusChangeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SSSMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SSSMainForm.Designer.cs">
+      <DependentUpon>SSSMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UploaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UploaderForm.Designer.cs">
+      <DependentUpon>UploaderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UploaderMonitorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UploaderMonitorForm.Designer.cs">
+      <DependentUpon>UploaderMonitorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UsersForm.Designer.cs">
+      <DependentUpon>UsersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\VFRSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VFRSettingsForm.Designer.cs">
+      <DependentUpon>VFRSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WorkingFoldersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WorkingFoldersForm.Designer.cs">
+      <DependentUpon>WorkingFoldersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WorlflowTemplatesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WorlflowTemplatesForm.Designer.cs">
+      <DependentUpon>WorlflowTemplatesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General.cs" />
+    <Compile Include="GeneralTools.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation.cs" />
+    <EmbeddedResource Include="Forms\AAA-TemporaryForm.resx">
+      <DependentUpon>AAA-TemporaryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BatchControlCenterForm.resx">
+      <DependentUpon>BatchControlCenterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BatchDocumentViewerForm.resx">
+      <DependentUpon>BatchDocumentViewerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BatchManagamentForm.resx">
+      <DependentUpon>BatchManagamentForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BatchTrackingForm.resx">
+      <DependentUpon>BatchTrackingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExportForm.resx">
+      <DependentUpon>ExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JobTypeForm.resx">
+      <DependentUpon>JobTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PageSizeCategoriesForm.resx">
+      <DependentUpon>PageSizeCategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProcessesForm.resx">
+      <DependentUpon>ProcessesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CustomerForm.resx">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DuplicateRemoverForm.resx">
+      <DependentUpon>DuplicateRemoverForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExportConfigurationForm.resx">
+      <DependentUpon>ExportConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FieldForm.resx">
+      <DependentUpon>FieldForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GeneralSettingsForm.resx">
+      <DependentUpon>GeneralSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IndexerForm.resx">
+      <DependentUpon>IndexerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JobBatchDeliveryForm.resx">
+      <DependentUpon>JobBatchDeliveryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JobFieldsImportForm.resx">
+      <DependentUpon>JobFieldsImportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PDFConversionForm.resx">
+      <DependentUpon>PDFConversionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProjectForm.resx">
+      <DependentUpon>ProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QualityControlForm.resx">
+      <DependentUpon>QualityControlForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RenamerForm.resx">
+      <DependentUpon>RenamerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReportForm.resx">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SchedulingForm.resx">
+      <DependentUpon>SchedulingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ServiceStationsForm.resx">
+      <DependentUpon>ServiceStationsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SMTPSettingsForm.resx">
+      <DependentUpon>SMTPSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StatusChangeForm.resx">
+      <DependentUpon>StatusChangeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SSSMainForm.resx">
+      <DependentUpon>SSSMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UploaderForm.resx">
+      <DependentUpon>UploaderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UploaderMonitorForm.resx">
+      <DependentUpon>UploaderMonitorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UsersForm.resx">
+      <DependentUpon>UsersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VFRSettingsForm.resx">
+      <DependentUpon>VFRSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkingFoldersForm.resx">
+      <DependentUpon>WorkingFoldersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorlflowTemplatesForm.resx">
+      <DependentUpon>WorlflowTemplatesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Properties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Help-256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Help-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Save-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Reset-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Apply-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Delete-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Exit-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\down-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quality-Control-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Batch-Registration-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quality-Control-II-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Batch Mnagament-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Configuration-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quality-Control-128x1281.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Scanners-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Documents-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Metadata-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logs-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Directory-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logs-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Infor-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Track-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reject-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Aprove-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delivery-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Select-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Unselect-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\control-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search 32-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reject-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Aprove-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Track-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Directory-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Documents-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Export-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Batch-Info-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit-Info-File-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Batch-Info-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Status-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Apply-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clear-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Control-Center-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Organize-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Email-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Organize-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quality Control 128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quality Control 128x1281.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quality Control 128x1282.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Status Change-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scanner-128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Status Change - 128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Status Change - 32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reject - 32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Load-Balancer-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Post-Validation-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Auto-Import-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\control-32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Backup-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Resting-Location-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Batch-Delivery-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Workflow Templates.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Templates-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Delete-Color-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Delete-From-VFR-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Refeed-to-VFR-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Reset-Search-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Exit-V2-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\PDF-Report-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\PDF-Report-32x32-V2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Tracking-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Category-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Clear-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Application.ico" />
+    <Content Include="Finder.ico" />
+    <None Include="Icons\Fill-Out-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
